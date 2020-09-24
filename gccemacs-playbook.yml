@@ -1,6 +1,6 @@
 ---
 
-# Run ansible-playbook brew.yml --connection=local --inventory 127.0.0.1,
+# Run ansible-playbook gccemacs-playbook.yml --connection=local --inventory 127.0.0.1,
 
 - name: Ensure gccjit is enabled
   hosts: all
@@ -23,7 +23,7 @@
   tasks:
     - name: Add binary dependencies
       homebrew:
-        name: gnutls,giflib,libtiff,jpeg
+        name: autoconf,gnutls,giflib,gnu-sed,libtiff,libxml2,pkg-config,ncurses,jansson,jpeg,texinfo
     - name: Add gcc as a compiled dependency
       homebrew:
         name: gcc

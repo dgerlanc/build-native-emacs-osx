@@ -7,12 +7,12 @@
   tasks:
     - name: Add gccjit
       lineinfile:
-        path: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/gcc.rb
+        path: /opt/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/gcc.rb
         regexp: 'languages ='
         line: '    languages = %w[c c++ objc obj-c++ fortran jit]'
     - name: Enable host shared
       lineinfile:
-        path: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/gcc.rb
+        path: /opt/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/gcc.rb
         # regexp: 'args = %W\['
         insertafter: 'args = %W\['
         line: '      --enable-host-shared'

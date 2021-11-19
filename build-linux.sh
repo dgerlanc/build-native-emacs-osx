@@ -18,7 +18,7 @@ fi
 
 if [ ! -d "$REPO" ]; then
     echo "Cloning git repo"
-    git clone --depth 1 git@github.com:emacs-mirror/emacs.git "$REPO" -b feature/native-comp
+    git clone --depth 1 git@github.com:emacs-mirror/emacs.git "$REPO" -b emacs-28
 else
     echo "Updating git repo"
     cd $REPO && git pull
@@ -29,14 +29,16 @@ cd $REPO || exit
 echo "Cleaning $REPO"
 git clean -xfd
 
-export CFLAGS="-O3 -march=native"
+export CFLAGS="-O3"
 
-./autogen.sh # all
+./autogen.sh
 
 echo "Running configure"
 ./configure \
-     --prefix=/usr/local/opt/gccemacs-${BUILD} \
-     --with-nativecomp \
+     --prefix=/opt/gccemacs-${BUILD} \
+     --with-native-compilation \
+     --with-x-toolkit=gtk3 \
+     --with-x-widgets \
      --with-cairo \
      --with-threads \
      --with-modules \

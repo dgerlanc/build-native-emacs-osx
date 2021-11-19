@@ -5,11 +5,13 @@ set -euo pipefail
 # User Parameters
 # TODO: Default to all cores
 N_CORES=${1:-4}
+GCC_VERSION="11.2.0"  # TODO: Scan for this if not provided
+GCC_MAJOR_VERSION="11"  # TODO: Derive from GCC_VERSION
 
 BUILD=$(date "+%Y-%m-%d")
 
 ROOT="$HOME/code"
-REPO="${ROOT}/emacs-native"
+REPO="${ROOT}/emacs-28"
 BREW_ROOT="/opt/homebrew"
 
 if [ ! -d "$ROOT" ]; then
@@ -18,16 +20,16 @@ if [ ! -d "$ROOT" ]; then
 fi
 
 if [ ! -d "$REPO" ]; then
-    git clone --depth 1 git@github.com:emacs-mirror/emacs.git "$REPO" -b feature/native-comp
+    git clone --depth 1 git@github.com:emacs-mirror/emacs.git "$REPO" -b emacs-28
 else
     cd $REPO && git pull
 fi
 
 # TODO: Make gcc location user-configurable
 export PATH="$BREW_ROOT/opt/gnu-sed/libexec/gnubin:${PATH}"
-export CFLAGS="-I$BREW_ROOT/Cellar/gcc/10.2.0/include -O3"
-export LDFLAGS="-L$BREW_ROOT/Cellar/gcc/10.2.0/lib/gcc/10 -I$BREW_ROOT/Cellar/gcc/10.2.0/include"
-export LIBRARY_PATH="$BREW_ROOT/Cellar/gcc/10.2.0/lib/gcc/10:${LIBRARY_PATH:-}"
+export CFLAGS="-I$BREW_ROOT/Cellar/gcc/$GCC_VERSION/include -O3"
+export LDFLAGS="-L$BREW_ROOT/Cellar/gcc/$GCC_VERSION/lib/gcc/$GCC_MAJOR_VERSION -I$BREW_ROOT/Cellar/gcc/$GCC_VERSION/include"
+export LIBRARY_PATH="$BREW_ROOT/Cellar/gcc/$GCC_VERSION/lib/gcc/$GCC_MAJOR_VERSION:${LIBRARY_PATH:-}"
 
 cd $REPO || exit
 
@@ -36,6 +38,7 @@ git clean -xfd
 ./autogen.sh
 
 ./configure \
+     --prefix=/usr/local/opt/gccemacs-${BUILD} \
      --with-ns \
      --with-native-compilation \
      --with-cairo \

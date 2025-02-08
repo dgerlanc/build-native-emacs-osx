@@ -2,28 +2,12 @@
 
 # Run ansible-playbook gccemacs-playbook.yml --connection=local --inventory 127.0.0.1,
 
-- name: Ensure gccjit is enabled
-  hosts: all
-  tasks:
-    - name: Add gccjit
-      lineinfile:
-        path: /opt/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/gcc.rb
-        regexp: 'languages ='
-        line: '    languages = %w[c c++ objc obj-c++ fortran jit]'
-    - name: Enable host shared
-      lineinfile:
-        path: /opt/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/gcc.rb
-        # regexp: 'args = %W\['
-        insertafter: 'args = %W\['
-        line: '      --enable-host-shared'
-
-
 - name: Install homebrew packages
   hosts: all
   tasks:
     - name: Add binary dependencies
       homebrew:
-        name: autoconf,gnutls,giflib,gnu-sed,libtiff,libxml2,pkg-config,ncurses,jansson,jpeg,texinfo
+        name: autoconf,gnutls,giflib,gnu-sed,libgccjit,libtiff,libxml2,pkg-config,ncurses,jansson,jpeg,texinfo
     - name: Add gcc as a compiled dependency
       homebrew:
         name: gcc

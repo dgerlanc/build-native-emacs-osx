@@ -34,6 +34,7 @@ echo "Running configure"
      --with-jpeg \
      --with-png \
      --with-tiff \
+     --with-sqlite3 \
      --without-pop
 #     --with-xwidgets \
 

@@ -36,7 +36,6 @@ echo "Running configure"
      --with-tiff \
      --with-sqlite3 \
      --without-pop
-#     --with-xwidgets \
 
 make -j "${N_CORES}"
 

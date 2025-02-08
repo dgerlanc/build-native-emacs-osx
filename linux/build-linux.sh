@@ -5,7 +5,7 @@ set -o pipefail
 
 # User Parameters
 N_CORES=${1:-4}
-VERSION="29.1"
+VERSION="29.4"
 
 ROOT="$HOME/code"
 REPO="${ROOT}/emacs-${VERSION}"

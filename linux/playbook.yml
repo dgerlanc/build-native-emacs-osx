@@ -20,6 +20,8 @@
           - libgtk-3-dev
           - libjansson-dev
           - libncurses-dev
+          - libotf-dev
+          - libsqlite3-dev
           - libtool
           - libtree-sitter-dev
           - libvterm-dev
